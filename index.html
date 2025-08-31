@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRIME PRO 3 – Web Predictor</title>
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Quantum-style extras */
+    :root{
+      --ring: 0 0 0 1px rgba(255,255,255,.12);
+    }
+    .quantum-grid {
+      background-image: radial-gradient(transparent 1px, rgba(255,255,255,0.06) 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 70%);
+      pointer-events: none;
+    }
+    .glow {
+      box-shadow: 0 10px 40px rgba(56,189,248,.25), inset 0 0 40px rgba(99,102,241,.12);
+    }
+    .aura::before{
+      content:""; position:absolute; inset:-2px; border-radius:22px;
+      background: conic-gradient(from 180deg, rgba(99,102,241,.35), rgba(56,189,248,.35), rgba(16,185,129,.35), rgba(99,102,241,.35));
+      filter: blur(24px); opacity:.55; z-index:-1;
+    }
+    .ring-quantum { box-shadow: var(--ring); }
+    .shimmer { background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); background-size:200% 100%; animation: shimmer 2.8s infinite linear; }
+    @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+    .pulse-soft { animation: pulse-soft 2.4s ease-in-out infinite; }
+    @keyframes pulse-soft { 0%,100%{opacity:.85} 50%{opacity:1} }
+  </style>
+  <!-- Lottie Web -->
+  <script src="https://unpkg.com/lottie-web/build/player/lottie.min.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-black text-white selection:bg-sky-400/30 selection:text-white">
+  <!-- Background quantum grid -->
+  <div class="fixed inset-0 quantum-grid"></div>
+  <div class="relative mx-auto max-w-6xl px-4"><!-- Header -->
+<header class="sticky top-0 z-30 backdrop-blur-md/30">
+  <div class="flex items-center justify-between py-4">
+    <div class="flex items-center gap-3">
+      <div class="relative h-11 w-11 overflow-hidden rounded-2xl ring-quantum glow">
+        <div id="sigma-frame" class="h-full w-full"></div>
+      </div>
+      <div>
+        <h1 class="text-xl font-black tracking-tight">PRIME PRO 3</h1>
+        <p class="text-xs text-white/70">Best Lottie animations • New Pro Premium design</p>
+      </div>
+    </div>
+    <div class="hidden sm:flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M12 2a1 1 0 0 1 1 1v2.055a7.002 7.002 0 0 1 6.945 6.254l2.007.402a1 1 0 1 1-.39 1.962l-2.008-.402A7.002 7.002 0 0 1 13 18.945V21a1 1 0 1 1-2 0v-2.055A7.002 7.002 0 0 1 4.055 12l-2.007-.402a1 1 0 1 1 .39-1.962l2.008.402A7.002 7.002 0 0 1 11 5.055V3a1 1 0 0 1 1-1Z"/></svg>
+      <span>AI‑Optimized Frames</span>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="mt-2">
+  <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+    <div class="grid md:grid-cols-2">
+      <div class="p-6 md:p-10 space-y-4">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Pro Premium Type
+        </span>
+        <h2 class="text-3xl md:text-4xl font-black leading-tight">
+          Predict smarter with <span class="bg-gradient-to-r from-indigo-300 to-sky-300 bg-clip-text text-transparent">Big or Small</span>
+        </h2>
+        <p class="text-sm text-white/75">Enter a 10–12 digit period number (digits only). Choose quality, open the prediction animation, and reveal results.</p>
+        <div class="flex flex-wrap items-center gap-4 text-xs text-white/70">
+          <div class="rounded-full bg-white/5 px-3 py-1 ring-quantum">Different‑quality timing</div>
+          <div class="rounded-full bg-white/5 px-3 py-1 ring-quantum">Smooth performance</div>
+          <div class="rounded-full bg-white/5 px-3 py-1 ring-quantum">AIO text frames</div>
+        </div>
+      </div>
+      <div class="relative min-h-56 shimmer">
+        <div id="premium-burst" class="absolute inset-0"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main -->
+<main class="grid lg:grid-cols-3 gap-6 py-8">
+  <!-- Predictor -->
+  <section class="lg:col-span-2 relative aura">
+    <div class="rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
+      <div class="p-6 border-b border-white/10">
+        <h3 class="text-xl font-bold">Prediction Box</h3>
+        <p class="text-sm text-white/70">Different quality options with animated opening</p>
+      </div>
+      <div class="p-6 space-y-6">
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
+            <label for="period" class="block text-sm">Period Number (10–12 digits)</label>
+            <input id="period" inputmode="numeric" maxlength="12" placeholder="Enter period number…" class="mt-2 w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-3 font-mono tracking-widest outline-none ring-quantum focus:border-sky-400/50 focus:ring-2 focus:ring-sky-400/30" />
+            <p class="mt-2 text-xs text-white/60">Digits only. No letters or symbols.</p>
+          </div>
+          <div>
+            <label class="block text-sm">Quality / Timing</label>
+            <select id="quality" class="mt-2 w-full rounded-xl border border-white/10 bg-slate-900/60 px-3 py-3 outline-none ring-quantum focus:border-indigo-400/50 focus:ring-2 focus:ring-indigo-400/30">
+              <option value="fast">Fast • 0.5s</option>
+              <option value="standard">Standard • 1s</option>
+              <option value="premium" selected>Premium • 1.5s</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Open Prediction animation panel -->
+        <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div id="open-predict" class="pointer-events-none absolute inset-0 opacity-70"></div>
+          <div class="relative z-10 flex items-center justify-between gap-4">
+            <div>
+              <div class="text-sm text-white/80">Open Prediction</div>
+              <div class="text-xs text-white/60">Animated preview reflects quality level</div>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <span id="quality-chip" class="rounded-full bg-white/10 px-3 py-1 ring-quantum">PREMIUM</span>
+              <span id="ready-chip" class="rounded-full bg-white/10 px-3 py-1 ring-quantum">INVALID</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between gap-3 border-t border-white/10 p-4">
+        <p class="text-xs text-white/60">Big/Small algorithm is for demonstration only and not financial advice.</p>
+        <button id="predict-btn" class="rounded-2xl bg-sky-500/90 px-6 py-3 font-semibold text-black transition hover:bg-sky-400 active:scale-[.99] disabled:opacity-50 disabled:cursor-not-allowed">Predict Result</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <aside class="relative">
+    <div class="rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
+      <div class="p-6 border-b border-white/10">
+        <h3 class="text-xl font-bold">Result</h3>
+        <p class="text-sm text-white/70">Outcome with AIO-styled framing</p>
+      </div>
+      <div class="p-6 space-y-4">
+        <div id="result-box" class="rounded-3xl p-6 text-center text-white/60 ring-quantum">No result yet. Enter a valid period and press Predict.</div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-4 space-y-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-white/60">Period</span>
+            <span id="period-view" class="font-mono tracking-widest">—</span>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-white/60">Computed</span>
+            <span id="computed-view">—</span>
+          </div>
+        </div>
+        <details class="rounded-2xl border border-white/10 bg-white/5 p-4 open:pulse-soft" open>
+          <summary class="cursor-pointer text-sm">Details</summary>
+          <ul class="mt-2 list-disc pl-5 text-sm text-white/80 space-y-1">
+            <li>Digits‑only input with validation</li>
+            <li>Quality‑based timing (Fast/Standard/Premium)</li>
+            <li>Open Prediction animated preview</li>
+            <li>Result reveal with Big/Small algorithm</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<!-- Footer -->
+<footer class="pb-10">
+  <div class="rounded-3xl border border-white/10 bg-gradient-to-r from-white/5 to-white/10 p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="text-sm text-white/70">© <span id="year"></span> PRIME PRO 3 — Pro Premium Type</div>
+    <div class="text-xs text-white/60">Replace Lottie URLs with your production assets.</div>
+  </div>
+</footer>
+
+  </div>  <script>
+    // --- Lottie animations (placeholders, replace with your own) ---
+    const sigmaFrameURL   = "https://assets8.lottiefiles.com/private_files/lf30_editor_2h2m4p2w.json"; // Sigma Frame placeholder
+    const premiumBurstURL = "https://assets4.lottiefiles.com/packages/lf20_puciaact.json";          // Premium spark burst
+    const openPredictURL  = "https://assets1.lottiefiles.com/packages/lf20_w51pcehl.json";          // Open prediction
+
+    let sigmaAnim, burstAnim, openAnim;
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      if (window.lottie) {
+        sigmaAnim = lottie.loadAnimation({ container: document.getElementById('sigma-frame'), renderer: 'svg', loop: true, autoplay: true, path: sigmaFrameURL });
+        burstAnim = lottie.loadAnimation({ container: document.getElementById('premium-burst'), renderer: 'svg', loop: true, autoplay: true, path: premiumBurstURL });
+        openAnim  = lottie.loadAnimation({ container: document.getElementById('open-predict'),  renderer: 'svg', loop: true, autoplay: true, path: openPredictURL  });
+      }
+
+      // Inputs
+      const periodInput   = document.getElementById('period');
+      const qualitySelect = document.getElementById('quality');
+      const predictBtn    = document.getElementById('predict-btn');
+      const qualityChip   = document.getElementById('quality-chip');
+      const readyChip     = document.getElementById('ready-chip');
+      const resultBox     = document.getElementById('result-box');
+      const periodView    = document.getElementById('period-view');
+      const computedView  = document.getElementById('computed-view');
+
+      const sanitizeDigits = (v) => (v || '').replace(/\D+/g, '').slice(0, 12);
+      const isValidPeriod  = (v) => /^\d{10,12}$/.test(v || '');
+      const bigSmall       = (p) => (p.split('').reduce((a,d)=>a + Number(d||0), 0) >= 45 ? 'BIG' : 'SMALL');
+
+      const updateReady = () => {
+        const v = periodInput.value;
+        const valid = isValidPeriod(v);
+        readyChip.textContent = valid ? 'READY' : 'INVALID';
+        predictBtn.disabled = !valid;
+      };
+
+      periodInput.addEventListener('input', (e) => {
+        const clean = sanitizeDigits(e.target.value);
+        if (clean !== e.target.value) e.target.value = clean;
+        updateReady();
+      });
+
+      qualitySelect.addEventListener('change', () => {
+        const label = qualitySelect.value.toUpperCase();
+        qualityChip.textContent = label;
+      });
+
+      predictBtn.addEventListener('click', async () => {
+        const period = periodInput.value;
+        if (!isValidPeriod(period)) return;
+
+        periodView.textContent = period;
+        computedView.textContent = '…';
+        resultBox.className = 'rounded-3xl p-6 text-center ring-quantum text-white/60';
+        resultBox.textContent = 'Predicting…';
+
+        const delay = qualitySelect.value === 'fast' ? 500 : (qualitySelect.value === 'standard' ? 1000 : 1500);
+        await new Promise(r=>setTimeout(r, delay));
+
+        const outcome = bigSmall(period);
+        computedView.textContent = outcome;
+        resultBox.textContent = outcome;
+        if (outcome === 'BIG') {
+          resultBox.className = 'rounded-3xl p-6 text-center font-black text-3xl tracking-wider ring-2 ring-emerald-400/30 bg-emerald-500/10';
+        } else {
+          resultBox.className = 'rounded-3xl p-6 text-center font-black text-3xl tracking-wider ring-2 ring-sky-400/30 bg-sky-500/10';
+        }
+      });
+
+      // Initialize chips and button state
+      updateReady();
+    });
+  </script></body>
+</html>
